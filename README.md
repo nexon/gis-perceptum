@@ -24,6 +24,10 @@ Starting and using the Vagrant box
 2. Clone this repository.
 3. Run ```vagrant up``` from the cloned repo
 4. In a few minutes you should have a clean GlassFish install
+5. log in ssh with `vagrant ssh` and change the admin password, then allow access remotely. All this can be done with
+  * /opt/glassfish4/bin/asadmin change-admin-password
+  * /opt/glassfish4/bin/asadmin enable-secure-admin
+  * /opt/glassfish4/bin/asadmin restart-domain
 
 **Accessing the server:**
 
