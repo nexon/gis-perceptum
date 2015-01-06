@@ -22,7 +22,7 @@ class perceptum {
     template   => 'template1',
   }
 
-  if $::postgresql::globals::globals_version >= '9.1' and $::postgresql::globals::globals_postgis_version >= '2.0' {
+  if $::postgresql::globals::globals_version >= '9.3' and $::postgresql::globals::globals_postgis_version >= '2.1' {
     postgresql_psql {'Add postgis extension on template_postgis':
       db      => 'template_postgis',
       command => 'CREATE EXTENSION postgis',
