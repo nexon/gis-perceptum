@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
 	config.vm.box = box
 	config.vm.box_url = url
 	config.vm.hostname = "gis-perceptum"
+	config.vm.synced_folder "glassfish", "/opt/glassfish4"
 	config.vm.network "private_network", ip: "192.168.50.50"
 	config.vm.network "forwarded_port", guest: 8080, host: 8080
 	config.vm.network "forwarded_port", guest: 4848, host: 4848

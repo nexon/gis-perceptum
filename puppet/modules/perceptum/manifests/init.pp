@@ -1,7 +1,12 @@
 include postgresql
 
 class perceptum {
-  class {'postgresql::server':}
+
+  class { 'postgresql::globals':
+    manage_package_repo => true,
+    version             => '9.1',
+  }->
+  class { 'postgresql::server': }
 
   class {'postgresql::server::postgis':}
 
