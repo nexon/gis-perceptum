@@ -1,12 +1,13 @@
 class glassfish {
 	require baseimage
-	
+
 	$glassfish_url = 'http://download.java.net/glassfish/4.0/release/glassfish-4.0.zip'
+	$glassfish_name = 'glassfish-4.0.zip'
 	$glassfish_install = "/opt"
 	$glassfish_home = "/opt/glassfish4"
 	$init_d = "/etc/init.d"
 	$user = 'root'
-	
+
 	package { 'unzip':
 		ensure => installed,
 	}
@@ -19,6 +20,7 @@ class glassfish {
 		command => "wget ${glassfish_url}",
 		cwd => "${glassfish_install}",
 		path => "/usr/bin",
+		unless => "test -e ${glassfish_install}/${glassfish_name}",
 		#user => $user,
 	}
 	->
@@ -26,6 +28,7 @@ class glassfish {
 		command => 'unzip glassfish-4.0.zip',
 		cwd => "${glassfish_install}",
 		path => "/usr/bin",
+		unless => "test -e ${glassfish_home}",
 		#user => $user,
 	}
 	->
@@ -41,7 +44,7 @@ class glassfish {
 		path => "/usr/sbin",
 	}
 	->
-	exec { 'start glassfish':
-		command => "${init_d}/glassfish start",
+	exec { 'restart glassfish':
+		command => "${init_d}/glassfish restart",
 	}
 }
