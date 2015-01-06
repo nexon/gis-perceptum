@@ -1,12 +1,19 @@
 include postgresql
+include apt
 
 class perceptum {
 
-  class { 'postgresql::globals':
-    manage_package_repo => true,
-    version             => '9.1',
-  }->
-  class { 'postgresql::server': }
+  exec { "apt-update":
+    command => "/usr/bin/apt-get update"
+  }
+
+  Exec["apt-update"] -> Package <| |>
+
+  class { 'postgresql::server':
+    ip_mask_deny_postgres_user => '0.0.0.0/32',
+    ip_mask_allow_all_users    => '0.0.0.0/0',
+    listen_addresses           => '*',
+    postgres_password          => 'postgres', }
 
   class {'postgresql::server::postgis':}
 
@@ -63,5 +70,14 @@ class perceptum {
     db        => 'template_postgis',
     role      => 'vagrant',
   }
+
+  postgresql::server::pg_hba_rule { 'allow application network to access app database':
+    description => "Open up postgresql for access from 192.168.50.0/24",
+    type => 'host',
+    database => 'template_postgis',
+    user => 'vagrant',
+    address => '192.168.50.0/24',
+    auth_method => 'md5',
+}
 
 }
