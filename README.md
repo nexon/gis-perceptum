@@ -9,7 +9,7 @@ Current Stack:
 * GlassFish V4 (installed as a service)
 * PostgreSQL V9.1
 * PostGIS V2.1
-* GeoServer V2.2
+* GeoServer V2.6.1
 
 Vagrant
 -------
@@ -31,5 +31,5 @@ Starting and using the Vagrant box
 
 **Accessing the server:**
 
-* Glassfish console: http://localhost:4848
-* Default domain: http://localhost:8080
+* Glassfish console: http://192.168.50.50:4848
+* Default domain: http://192.168.50.50:8080
