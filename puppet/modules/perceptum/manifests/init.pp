@@ -76,12 +76,27 @@ class perceptum {
   }
 
   postgresql::server::pg_hba_rule { 'allow application network to access app database':
-    description => "Open up postgresql for access from 192.168.50.0/24",
+    description => "Open up postgresql for access from 192.168.0.0/32",
     type => 'host',
     database => 'template_postgis',
     user => 'vagrant',
-    address => '192.168.50.0/24',
+    address => '192.168.0.0/24',
     auth_method => 'md5',
-}
+  }
 
+  # exec { 'Change Admin password to \'admin\'':
+  #   command => '/bin/echo',
+  #   # path => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+  #   # refreshonly => true,
+  # }
+  #
+  # exec { 'Enabling Secure Admin Interface':
+  #   command => '/opt/glassfish4/bin/asadmin enable-secure-admin',
+  # }
+  #
+  # exec { "Restarting Service (GlassFish)":
+  #   path => ["/usr/bin/","/usr/sbin/","/bin"],
+  #   command => "/opt/glassfish4/bin/asadmin restart-domain",
+  #   user => 'root',
+  # }
 }
